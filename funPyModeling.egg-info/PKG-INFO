@@ -1,0 +1,13 @@
+Metadata-Version: 1.2
+Name: funpymodeling
+Version: 0.1.0
+Summary: A package designed for data scientists and teachers, to speed up their ML projects, focused on exploratory data analysis, data preparation, and model performance.
+Home-page: https://github.com/pablo14/funPyModeling
+Author: Pablo Casas
+Author-email: pcasas.biz@gmail.com
+License: UNKNOWN
+Description: # funPyModeling
+        A package to help data scientist in Exploratory Data Analysis and Data Preparation for ML models
+        
+Platform: UNKNOWN
+Requires-Python: >=3.7,<4.0
