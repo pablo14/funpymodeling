@@ -1,5 +1,5 @@
 [tool.poetry]
-name = "funPyModeling"
+name = "funpymodeling"
 version = "0.1.3"
 description = "A package designed for data scientists and teachers, to speed up their ML projects, focused on exploratory data analysis, data preparation, and model performance."
 license="MIT"
