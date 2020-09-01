@@ -20,7 +20,8 @@ __pycache__/
 *.pyc
 *.ipynb_checkpoints/
 funPyModeling.egg-info/
-
+.ipynb_checkpoints/*
+funpymodeling/.ipynb_checkpoints/*
 # Distribution / packaging
 .Python
 build/
