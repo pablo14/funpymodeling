@@ -10,9 +10,9 @@ documentation = "https://github.com/pablo14/funPyModeling"
 
 [tool.poetry.dependencies]
 python = "^3.6.1"
-pandas = "^1.1.0"
-numpy = "^1.19.1"
-matplotlib = "^3.3.0"
+pandas = "^1.0.5"
+numpy = "^1.18.5"
+matplotlib = "^3.2.2"
 typing-extensions = { version = "^3.7.4", python = "<3.8" }
 sklearn = "^0.0"
 seaborn = "^0.10.1"
