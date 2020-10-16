@@ -1,6 +1,7 @@
 import pandas as pd
 import numpy as np
-from .data_prep import todf
+from funpymodeling.data_prep import todf
+from funpymodeling.constants import QUANTILES
 
 def status(data):
     """
@@ -167,7 +168,7 @@ def profiling_num(data):
 
     des1['variation_coef']=des1['std_dev']/des1['mean']
     
-    d_quant=d.quantile([0.01, 0.05, 0.25, 0.5, 0.75, 0.95, 0.99]).transpose().add_prefix('p_')
+    d_quant=d.quantile(QUANTILES).transpose().add_prefix('p_')
     
     des2=des1.join(d_quant, how='outer')
     
@@ -177,7 +178,7 @@ def profiling_num(data):
     
     des_final=des_final.reset_index(drop=True)
     
-    des_final=des_final[['variable', 'mean', 'std_dev','variation_coef', 'p_0.01', 'p_0.05', 'p_0.25', 'p_0.5', 'p_0.75', 'p_0.95', 'p_0.99']]
+    des_final=des_final[['variable', 'mean', 'std_dev','variation_coef'] + [f'p_{quantile}' for quantile in QUANTILES]]
     
     return des_final
 
