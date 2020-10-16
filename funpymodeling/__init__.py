@@ -3,4 +3,4 @@ from .exploratory import status, corr_pair, num_vars, cat_vars, profiling_num, f
 from .model_validation import coord_plot
 
 
-__version__ = "0.1.6"
+__version__ = "0.1.7"
