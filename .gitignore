@@ -1,3 +1,7 @@
+# Custom
+my_env/
+
+# General
 syntax: glob
 .python-version
 .venv
