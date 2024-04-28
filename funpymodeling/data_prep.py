@@ -3,49 +3,45 @@ import numpy as np
 
 def todf(data):
     """
-    It converts almost any object to pandas dataframe. It supports: 1D/2D list, 1D/2D arrays, pandas series. If the object containts +2D it returns an error.
-    Parameters:
-    -----------
-    data: data
-    
-    Returns:
-    --------
-    A pandas dataframe.
+    Convert almost any object to a pandas DataFrame
 
-    Example:
-    --------
-    >> from numpy import array
+    Parameters
+    ----------
+    data: data to be converted
 
-    # Different case study:
-    >> list_1d = [11, 12, 5, 2] 
-    >> todf(list_1d)
-    >> list_2d = [[11, 12, 5, 2], [15,24, 6,10], [10, 8, 12, 5], [12,15,8,6]]
-    >> todf(list_2d)
-    >> list_3d = [[[11, 12, 5, 2], [15,24, 6,10], [10, 8, 12, 5], [12,15,8,6]]]
-    >> todf(list_3d)
-    >> array_1d = array(list_1d)
-    >> todf(array_1d)
-    >> array_2d = array(list_2d)
-    >> todf(array_2d)
-    >> pd_df=pd.DataFrame({'v1':[11, 12, 5, 2], 'v2':[15,24, 6,10]}) # ok
-    >> todf(pd_df)
-    >> pd_series=pd_df.v1
+    Returns
+    -------
+    A pandas DataFrame
+
+    Raises
+    ------
+    ValueError
+        If the object to be converted has more than 2 dimensions
+    TypeError
+        If data is None
+
     """
-    if isinstance(data, list):
-        data=np.array(data)
 
-    if(len(data.shape))>2:
-        raise Exception("I live in flattland! (can't handle objects with more than 2 dimensions)") 
+    if data is None:
+        raise TypeError("'data' parameter cannot be None")
 
-    if isinstance(data, pd.Series):
-        data2=pd.DataFrame({data.name: data})
-    elif isinstance(data, np.ndarray):
-        if(data.shape==1):
-            data2=pd.DataFrame({'var': data}).convert_dtypes()
+    if isinstance(data, pd.DataFrame):
+        return data
+
+    if isinstance(data, np.ndarray):
+        if data.ndim == 1:
+            data = pd.DataFrame({'var': data})
+        elif data.ndim == 2:
+            data = pd.DataFrame(data)
         else:
-            data2=pd.DataFrame(data).convert_dtypes()
-    else: 
-        data2=data
-        
-    return data2
+            raise ValueError(
+                "The object to be converted has more than 2 dimensions"
+            )
 
+    elif isinstance(data, list):
+        data = pd.DataFrame(data)
+
+    else:
+        data = pd.DataFrame({'var': data}).convert_dtypes()
+
+    return data
