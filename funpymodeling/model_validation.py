@@ -6,7 +6,7 @@ import seaborn as sns
 import matplotlib.pyplot as plt
 
 
-def coord_plot1(data, group_var,colormap="Dark2"):
+def coord_plot(data, group_var,colormap="Dark2"):
     """
     Coordinate plot analysis for clustering models. Also returns the original and the normalized (min-max) variable table. Useful to extract the main features for each cluster according to the variable means.
     Parameters:
