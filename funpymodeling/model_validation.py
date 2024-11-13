@@ -6,7 +6,7 @@ import seaborn as sns
 import matplotlib.pyplot as plt
 
 
-def coord_plot(data, group_var):
+def coord_plot1(data, group_var,colormap="Dark2"):
     """
     Coordinate plot analysis for clustering models. Also returns the original and the normalized (min-max) variable table. Useful to extract the main features for each cluster according to the variable means.
     Parameters:
@@ -43,7 +43,20 @@ def coord_plot(data, group_var):
     df_grp_mm[group_var]=x_grp[group_var] # variables escaladas
 
     # 4- plot
-    parallel_coordinates(df_grp_mm, group_var, colormap=plt.get_cmap("Dark2"))
+    plt.figure(figsize=(15, 6))
+    parallel_coordinates(df_grp_mm, group_var, colormap=plt.get_cmap(colormap))
+    # Adding points and labels
+    for i, row in df_grp_mm.iterrows():
+        class_label = row[group_var].astype(int)
+        for j, feature in enumerate(df_grp_mm.columns[:-1]):  # Skip the last column (group_var)
+            plt.plot(j, row[feature], 'o', color='black')  # Add a point at each feature value
+            if i % 2 == 0:
+                plt.text(j - 0.02*i, row[feature] + 0.02, str(class_label), ha='right', va='center', 
+                        fontsize=8, color='red')  # Label on the left
+            else:
+                plt.text(j + 0.02*i, row[feature] - 0.02, str(class_label), ha='left', va='center', 
+                        fontsize=8, color='black')  # Label on the right
     plt.xticks(rotation=90)
+    plt.show()
 
     return [x_grp, df_grp_mm]
