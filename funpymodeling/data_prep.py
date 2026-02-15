@@ -385,3 +385,64 @@ def discretize_df(data, data_bins):
         df.loc[na_mask, col] = 'NA.'
     return df
 
+
+# ---------------------------------------------------------------
+# range01
+# ---------------------------------------------------------------
+def range01(x):
+    """
+    Scale a numeric vector to the [0, 1] range (min-max normalization).
+    Equivalent to funModeling::range01 in R.
+
+    Parameters:
+    -----------
+    x: numeric vector (pandas Series, list, or numpy array)
+
+    Returns:
+    --------
+    A pandas Series scaled to [0, 1].
+
+    Example:
+    --------
+    >> range01([1, 2, 3, 4, 5])
+    """
+    x = pd.Series(x).dropna()
+    rng = x.max() - x.min()
+    if rng == 0:
+        return pd.Series(np.zeros(len(x)), index=x.index)
+    return (x - x.min()) / rng
+
+
+# ---------------------------------------------------------------
+# convert_df_to_categoric
+# ---------------------------------------------------------------
+def convert_df_to_categoric(data, n_bins=5):
+    """
+    Convert all variables in a data frame to categorical.
+    Numeric variables are binned using equal_freq; character/factor
+    variables are cast to string.
+    Equivalent to funModeling::convert_df_to_categoric in R.
+
+    Parameters:
+    -----------
+    data: pandas DataFrame
+    n_bins: number of bins for numeric variables (default 5)
+
+    Returns:
+    --------
+    A DataFrame where every column is a string/categorical.
+
+    Example:
+    --------
+    >> import seaborn as sns
+    >> iris = sns.load_dataset('iris')
+    >> convert_df_to_categoric(iris, n_bins=5)
+    """
+    df = data.copy()
+    for col in df.columns:
+        if pd.api.types.is_numeric_dtype(df[col]):
+            df[col] = pd.qcut(df[col], q=n_bins, duplicates='drop').astype(str)
+        else:
+            df[col] = df[col].astype(str)
+    return df
+

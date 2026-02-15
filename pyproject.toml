@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "funpymodeling"
-version = "0.2.0"
+version = "0.2.1"
 description = "A package designed for data scientists and teachers, to speed up their ML projects, focused on exploratory data analysis, data preparation, and model performance."
 license="MIT"
 authors = ["Pablo Casas <pcasas.biz@gmail.com>"]

@@ -8,6 +8,8 @@ from .data_prep import (
     auto_grouping,
     discretize_get_bins,
     discretize_df,
+    range01,
+    convert_df_to_categoric,
 )
 from .exploratory import (
     status,
@@ -22,6 +24,7 @@ from .exploratory import (
 from .target_analysis import (
     cross_plot,
     var_rank_info,
+    plotar,
 )
 from .model_validation import (
     coord_plot,
@@ -29,4 +32,4 @@ from .model_validation import (
 )
 
 
-__version__ = "0.2.0"
+__version__ = "0.2.1"

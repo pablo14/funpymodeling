@@ -195,3 +195,58 @@ def var_rank_info(data, target):
     df_result = pd.DataFrame(results)
     df_result = df_result.sort_values('gr', ascending=False).reset_index(drop=True)
     return df_result
+
+
+# ---------------------------------------------------------------
+# plotar
+# ---------------------------------------------------------------
+def plotar(data, input, target, plot_type='boxplot'):
+    """
+    Plot numeric variables grouped by a target variable.
+    Generates boxplots or density histograms for each input variable.
+    Equivalent to funModeling::plotar in R.
+
+    Parameters:
+    -----------
+    data: data frame
+    input: string or list of strings with numeric variable names
+    target: string, target variable name (categorical)
+    plot_type: 'boxplot' (default) or 'histdens'
+
+    Returns:
+    --------
+    None (displays plots).
+
+    Example:
+    --------
+    >> plotar(heart_disease, input='age', target='has_heart_disease')
+    >> plotar(heart_disease, input=['age', 'oldpeak'], target='has_heart_disease', plot_type='histdens')
+    """
+    if isinstance(input, str):
+        input = [input]
+
+    for var in input:
+        if plot_type == 'boxplot':
+            fig, ax = plt.subplots(figsize=(5, 3))
+            data.boxplot(column=var, by=target, ax=ax,
+                         patch_artist=True,
+                         boxprops=dict(facecolor='lightblue'))
+            ax.set_title(f'{var}')
+            ax.set_xlabel(target)
+            ax.set_ylabel(var)
+            plt.suptitle('')
+            plt.tight_layout()
+            plt.show()
+
+        elif plot_type == 'histdens':
+            fig, ax = plt.subplots(figsize=(5, 3))
+            for val in sorted(data[target].dropna().unique()):
+                subset = data[data[target] == val][var].dropna()
+                subset.plot.kde(ax=ax, label=str(val))
+                ax.axvline(subset.mean(), linestyle='--', alpha=0.5)
+            ax.set_xlabel(var)
+            ax.set_ylabel('Densidad')
+            ax.set_title(f'{var}')
+            ax.legend(title=target)
+            plt.tight_layout()
+            plt.show()
