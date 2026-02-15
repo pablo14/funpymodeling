@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "funpymodeling"
-version = "0.1.7"
+version = "0.2.0"
 description = "A package designed for data scientists and teachers, to speed up their ML projects, focused on exploratory data analysis, data preparation, and model performance."
 license="MIT"
 authors = ["Pablo Casas <pcasas.biz@gmail.com>"]
@@ -16,6 +16,9 @@ matplotlib = "^3.7.1"
 typing-extensions = "^4.6.3"
 scikit-learn = "^1.2.2"
 seaborn = "^0.12.2"
+scipy = "^1.10.0"
+
+[tool.poetry.group.dev.dependencies]
 flake8 = "^6.0.0"
 jupyter = "^1.0.0"
 pre-commit = "^3.3.2"

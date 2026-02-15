@@ -47,3 +47,68 @@ def coord_plot(data, group_var):
     plt.xticks(rotation=90)
 
     return [x_grp, df_grp_mm]
+
+
+# ---------------------------------------------------------------
+# gain_lift
+# ---------------------------------------------------------------
+def gain_lift(data, score, target, q_segments=10):
+    """
+    Generates lift and cumulative gain performance table and plot.
+    Higher values at the beginning of the population implies a better model.
+    Equivalent to funModeling::gain_lift in R.
+
+    Parameters:
+    -----------
+    data: data frame
+    score: string, column name containing the score/probability
+    target: string, binary target variable name
+    q_segments: number of segments (5, 10 or 20), default 10
+
+    Returns:
+    --------
+    DataFrame with columns: Population, Gain, Lift, Score.Point.
+    Also displays cumulative gain and lift charts.
+
+    Example:
+    --------
+    >> gain_lift(data=heart_disease, score='score', target='has_heart_disease')
+    """
+    df = data[[score, target]].dropna().copy()
+    pos_class = df[target].value_counts().idxmin()
+    df['target_bin'] = (df[target] == pos_class).astype(int)
+    df = df.sort_values(score, ascending=False).reset_index(drop=True)
+    n, total_pos = len(df), df['target_bin'].sum()
+
+    results = []
+    for i in range(1, q_segments + 1):
+        idx = int(n * i / q_segments)
+        cum = df.iloc[:idx]['target_bin'].sum()
+        gain = round(cum / total_pos * 100, 2)
+        results.append({
+            'Population': round(i * 100 / q_segments, 1),
+            'Gain': gain,
+            'Lift': round(gain / 100 / (i / q_segments), 2),
+            'Score.Point': round(df.iloc[idx - 1][score], 7)
+        })
+
+    results_df = pd.DataFrame(results)
+
+    # Plot
+    pop = [0] + list(results_df['Population'])
+    fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(12, 3))
+
+    ax1.plot(pop, [0] + list(results_df['Gain']), 'b-o', lw=2, ms=4)
+    ax1.plot([0, 100], [0, 100], 'k--')
+    ax1.set(xlabel='Population (%)', ylabel='Gain (%)',
+            title='Cumulative Gain Chart', xlim=(0, 100), ylim=(0, 105))
+
+    ax2.plot(results_df['Population'], results_df['Lift'], 'r-o', lw=2, ms=4)
+    ax2.axhline(y=1, color='k', ls='--')
+    ax2.set(xlabel='Population (%)', ylabel='Lift',
+            title='Lift Chart', xlim=(0, 105))
+
+    plt.tight_layout()
+    plt.show()
+
+    return results_df
