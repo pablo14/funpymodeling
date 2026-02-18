@@ -35,7 +35,7 @@ For each variable: quantity and percentage of zeros, NAs, and infinite values. A
 status(heart_disease)
 ```
 
-![status](images/status.png)
+![status](https://raw.githubusercontent.com/pablo14/funpymodeling/master/images/status.png)
 
 ### `profiling_num` — Numerical variable profiling
 
@@ -45,7 +45,7 @@ Returns mean, std_dev, variation_coef, percentiles (p_01 to p_99), skewness, kur
 profiling_num(heart_disease)
 ```
 
-![profiling_num](images/profiling_num.png)
+![profiling_num](https://raw.githubusercontent.com/pablo14/funpymodeling/master/images/profiling_num.png)
 
 ### `plot_num` — Histograms for numerical variables
 
@@ -56,7 +56,7 @@ plot_num(heart_disease)
 plot_num(heart_disease, bins=20)
 ```
 
-![plot_num](images/plot_num.png)
+![plot_num](https://raw.githubusercontent.com/pablo14/funpymodeling/master/images/plot_num.png)
 
 ### `freq_tbl` — Frequency table for categorical variables
 
@@ -72,7 +72,7 @@ freq_tbl(heart_disease, input=['chest_pain', 'gender'])
 freq_tbl(heart_disease)
 ```
 
-![freq_tbl](images/freq_tbl.png)
+![freq_tbl](https://raw.githubusercontent.com/pablo14/funpymodeling/master/images/freq_tbl.png)
 
 ### `freq_plot` — Bar chart for categorical variables
 
@@ -82,7 +82,7 @@ Horizontal bar charts showing frequency and percentage for each category.
 freq_plot(heart_disease, input='chest_pain')
 ```
 
-![freq_plot](images/freq_plot.png)
+![freq_plot](https://raw.githubusercontent.com/pablo14/funpymodeling/master/images/freq_plot.png)
 
 ---
 
@@ -96,7 +96,7 @@ Computes entropy (en), mutual information (mi), information gain (ig), and gain 
 var_rank_info(heart_disease, target='has_heart_disease')
 ```
 
-![var_rank_info](images/var_rank_info.png)
+![var_rank_info](https://raw.githubusercontent.com/pablo14/funpymodeling/master/images/var_rank_info.png)
 
 ### `cross_plot` — Input vs. target distribution
 
@@ -109,7 +109,7 @@ cross_plot(heart_disease, input='chest_pain', target='has_heart_disease')
 cross_plot(heart_disease, input=['age', 'chest_pain'], target='has_heart_disease')
 ```
 
-![cross_plot](images/cross_plot.png)
+![cross_plot](https://raw.githubusercontent.com/pablo14/funpymodeling/master/images/cross_plot.png)
 
 ### `plotar` — Boxplot and density histograms by target
 
@@ -121,7 +121,7 @@ plotar(heart_disease, input='age',
        target='has_heart_disease', plot_type='boxplot')
 ```
 
-![plotar_boxplot](images/plotar_boxplot.png)
+![plotar_boxplot](https://raw.githubusercontent.com/pablo14/funpymodeling/master/images/plotar_boxplot.png)
 
 ```python
 # Density histogram
@@ -129,7 +129,7 @@ plotar(heart_disease, input='age',
        target='has_heart_disease', plot_type='histdens')
 ```
 
-![plotar_histdens](images/plotar_histdens.png)
+![plotar_histdens](https://raw.githubusercontent.com/pablo14/funpymodeling/master/images/plotar_histdens.png)
 
 Notes:
 - `input` must be numeric and `target` must be categorical.
@@ -244,7 +244,7 @@ Higher values at the beginning of the population implies a better model.
 gain_lift(data=scored_data, score='score', target='has_heart_disease')
 ```
 
-![gain_lift](images/gain_lift.png)
+![gain_lift](https://raw.githubusercontent.com/pablo14/funpymodeling/master/images/gain_lift.png)
 
 ### `coord_plot` — Coordinate plot for clustering
 
