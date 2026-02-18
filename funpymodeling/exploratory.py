@@ -190,6 +190,9 @@ def _freq_tbl_logic(var, name):
     freq = var.value_counts(dropna=False).reset_index()
     freq.columns = [name, 'frequency']
     # Replace NaN index values with 'NA' string for display
+    # Convert to object first to handle categorical dtypes where 'NA' may not be in categories
+    if hasattr(freq[name], 'cat'):
+        freq[name] = freq[name].astype(object)
     freq[name] = freq[name].fillna('NA')
     freq = freq.sort_values('frequency', ascending=False).reset_index(drop=True)
     total = freq['frequency'].sum()
