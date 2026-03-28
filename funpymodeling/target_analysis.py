@@ -164,8 +164,8 @@ def var_rank_info(data, target):
         x = df_temp[var]
         y_temp = df_temp[target]
 
-        # If numeric, discretize for mutual information calculation
-        if pd.api.types.is_numeric_dtype(x):
+        # If numeric with many unique values, discretize for mutual information
+        if pd.api.types.is_numeric_dtype(x) and x.nunique() > 10:
             try:
                 x = pd.qcut(x, q=10, duplicates='drop', labels=False)
             except ValueError:

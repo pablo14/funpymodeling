@@ -320,6 +320,7 @@ def auto_grouping(data, input, target, n_groups, model='kmeans', seed=999):
 def discretize_get_bins(data, input, n_bins=5):
     """
     Get bin thresholds for equal-frequency discretization.
+    Bin edges are rounded to 2 decimal places.
     Equivalent to funModeling::discretize_get_bins in R.
 
     Parameters:
@@ -340,6 +341,7 @@ def discretize_get_bins(data, input, n_bins=5):
     for col in input:
         x = data[col].dropna()
         _, bins = pd.qcut(x, q=n_bins, retbins=True, duplicates='drop')
+        bins = np.round(bins, 2)
         bins[0] = -np.inf
         bins[-1] = np.inf
         result[col] = bins
@@ -374,11 +376,11 @@ def discretize_df(data, data_bins):
         labels = []
         for i in range(len(bins) - 1):
             if bins[i] == -np.inf:
-                labels.append(f'[-Inf, {bins[i+1]:.1f})')
+                labels.append(f'[-Inf, {bins[i+1]:.2f})')
             elif bins[i+1] == np.inf:
-                labels.append(f'[{bins[i]:.1f}, Inf]')
+                labels.append(f'[{bins[i]:.2f}, Inf]')
             else:
-                labels.append(f'[{bins[i]:.1f}, {bins[i+1]:.1f})')
+                labels.append(f'[{bins[i]:.2f}, {bins[i+1]:.2f})')
         na_mask = df[col].isna()
         df[col] = pd.cut(df[col], bins=bins, labels=labels, include_lowest=True)
         df[col] = df[col].cat.add_categories('NA.')

@@ -9,6 +9,7 @@ def status(data):
     For each variable it returns: Quantity and percentage of zeros (q_zeros and p_zeros respectively).
     Same metrics for NA values (q_nan/p_nan), and infinite values (q_inf/p_inf).
     Last two columns indicates data type and quantity of unique values.
+    All percentage columns are rounded to 2 decimal places.
     Equivalent to funModeling::df_status in R.
 
     Parameters:
@@ -30,11 +31,11 @@ def status(data):
 
     d2 = data2.isnull().sum().reset_index()
     d2.columns = ['variable', 'q_nan']
-    d2['p_nan'] = round(d2['q_nan'] / tot_rows, 3)
+    d2['p_nan'] = round(d2['q_nan'] / tot_rows, 2)
     d2['q_zeros'] = (data2 == 0).sum().values
-    d2['p_zeros'] = round(d2['q_zeros'] / tot_rows, 3)
+    d2['p_zeros'] = round(d2['q_zeros'] / tot_rows, 2)
     d2['q_inf'] = data2.apply(lambda x: np.isinf(x).sum() if np.issubdtype(x.dtype, np.number) else 0).values
-    d2['p_inf'] = round(d2['q_inf'] / tot_rows, 3)
+    d2['p_inf'] = round(d2['q_inf'] / tot_rows, 2)
     d2['type'] = [str(x) for x in data2.dtypes.values]
     d2['unique'] = data2.nunique().values
 

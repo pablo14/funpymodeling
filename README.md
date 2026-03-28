@@ -29,7 +29,7 @@ Some functions have comments in the source code so users can open the black-box 
 
 ### `status` — Dataset health check
 
-For each variable: quantity and percentage of zeros, NAs, and infinite values. Also reports data type and number of unique values.
+For each variable: quantity and percentage of zeros, NAs, and infinite values. Percentages are rounded to 2 decimal places. Also reports data type and number of unique values.
 
 ```python
 status(heart_disease)
@@ -262,7 +262,7 @@ coord_plot(iris, group_var='species')
 
 | Function | Description |
 |---|---|
-| `status(data)` | Health check: zeros, NAs, infinites, types, unique values |
+| `status(data)` | Health check: zeros, NAs, infinites, types, unique values (percentages rounded to 2 decimals) |
 | `profiling_num(data)` | Numeric profiling: mean, std, percentiles, skewness, kurtosis |
 | `freq_tbl(data, input)` | Frequency table for categorical variables |
 | `freq_plot(data, input)` | Horizontal bar chart of frequencies |
@@ -281,7 +281,7 @@ coord_plot(iris, group_var='species')
 | `prep_outliers(data, input, type, method)` | Handle outliers: set_na or stop (clip) |
 | `categ_analysis(data, input, target)` | Profile categorical variable vs binary target |
 | `auto_grouping(data, input, target, n_groups)` | Reduce cardinality via KMeans clustering |
-| `discretize_get_bins(data, input, n_bins)` | Get bin thresholds for discretization |
+| `discretize_get_bins(data, input, n_bins)` | Get bin thresholds for discretization (edges rounded to 2 decimals) |
 | `discretize_df(data, data_bins)` | Apply discretization bins to a DataFrame |
 | `range01(x)` | Min-max normalization to [0, 1] |
 | `convert_df_to_categoric(data, n_bins)` | Convert all columns to categorical |
