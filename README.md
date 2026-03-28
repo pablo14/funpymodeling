@@ -238,7 +238,7 @@ prep_outliers(heart_disease, input=['age'], type='stop',
 
 ### `gain_lift` — Gain and lift curves
 
-Higher values at the beginning of the population implies a better model.
+Higher values at the beginning of the population implies a better model. Automatically detects score direction (whether high scores indicate positive or negative class).
 
 ```python
 gain_lift(data=scored_data, score='score', target='has_heart_disease')
@@ -299,7 +299,7 @@ coord_plot(iris, group_var='species')
 
 | Function | Description |
 |---|---|
-| `gain_lift(data, score, target)` | Cumulative gain and lift chart + table |
+| `gain_lift(data, score, target)` | Cumulative gain and lift chart + table (auto-detects score direction) |
 | `coord_plot(data, group_var)` | Coordinate (parallel) plot for cluster profiling |
 
 ## Dependencies

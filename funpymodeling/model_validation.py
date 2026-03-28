@@ -77,8 +77,21 @@ def gain_lift(data, score, target, q_segments=10):
     df = data[[score, target]].dropna().copy()
     pos_class = df[target].value_counts().idxmin()
     df['target_bin'] = (df[target] == pos_class).astype(int)
-    df = df.sort_values(score, ascending=False).reset_index(drop=True)
-    n, total_pos = len(df), df['target_bin'].sum()
+    
+    # Sort by score descending (high scores = positive class)
+    df_desc = df.sort_values(score, ascending=False).reset_index(drop=True)
+    
+    # Check if we need to invert: calculate gain at 50% population
+    n = len(df_desc)
+    total_pos = df_desc['target_bin'].sum()
+    idx_50 = int(n * 0.5)
+    gain_50 = df_desc.iloc[:idx_50]['target_bin'].sum() / total_pos * 100
+    
+    # If gain at 50% < 50%, scores are inverted (high score = negative class)
+    if gain_50 < 50:
+        df = df.sort_values(score, ascending=True).reset_index(drop=True)
+    else:
+        df = df_desc
 
     results = []
     for i in range(1, q_segments + 1):
